@@ -22,15 +22,9 @@ function App() {
       detect(net);
     }, 10);
   };
-  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
 
-  const handleClick = React.useCallback(() => {
-    setFacingMode((prevState) =>
-      prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT
-        : FACING_MODE_USER
-    );
-  }, []);
+
+
 
   const detect = async (net) => {
     
@@ -62,8 +56,17 @@ function App() {
       const obj = await net.detect(video);
       // console.log(obj)
       function myFunction(value, index, array) {
-        // console.log(value)
-        console.log(value.class)
+        // // console.log(value)
+        // // console.log(value.class)
+        // if(value.class=='person'){
+        //   setTimeout(() => {
+        //    console.log('person')
+        // }, 10000);
+        // }
+       if(value.class =='bird' || value.class=='skateboard' || value.class=='cat' || value.class =='bear' || value.class=='cow'){
+       
+        fetch(' https://blr1.blynk.cloud/external/api/update?token=M1RZsnfI1b813dCtZWQetQsiT9pCM-33&v0=1');
+       }
       }
       obj.forEach(myFunction);
       // Draw mesh
@@ -109,8 +112,7 @@ function App() {
           }}
         />
       </header>
-      <button onClick={handleClick}>Switch camera</button>
- 
+      
     </div>
   );
 }
