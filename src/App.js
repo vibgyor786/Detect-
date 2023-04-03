@@ -63,9 +63,18 @@ function App() {
         //    console.log('person')
         // }, 10000);
         // }
-       if(value.class =='bird' || value.class=='skateboard' || value.class=='cat' || value.class =='bear' || value.class=='cow'){
+       if(value.class =='bird' || value.class=='skateboard' || value.class=='cat' || value.class =='bear' || value.class=='cow' || value.class=='teddy bear' || value.class=='donut'){
        
-        fetch(' https://blr1.blynk.cloud/external/api/update?token=M1RZsnfI1b813dCtZWQetQsiT9pCM-33&v0=1');
+        // fetch(' https://blr1.blynk.cloud/external/api/update?token=M1RZsnfI1b813dCtZWQetQsiT9pCM-33&v0=1');
+        fetch('https://blr1.blynk.cloud/external/api/update?token=M1RZsnfI1b813dCtZWQetQsiT9pCM-33&v0=1')
+         .then((res) => res.json())
+         .then((data) => {
+            console.log(data);
+            // setPosts(data);
+         })
+         .catch((err) => {
+            console.log(err.message);
+         });
        }
       }
       obj.forEach(myFunction);
