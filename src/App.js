@@ -6,6 +6,9 @@ import Webcam from "react-webcam";
 import "./App.css";
 import { drawRect } from "./utilities";
 
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
+
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -19,8 +22,19 @@ function App() {
       detect(net);
     }, 10);
   };
+  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+
+  const handleClick = React.useCallback(() => {
+    setFacingMode((prevState) =>
+      prevState === FACING_MODE_USER
+        ? FACING_MODE_ENVIRONMENT
+        : FACING_MODE_USER
+    );
+  }, []);
 
   const detect = async (net) => {
+    
+
     // Check data is available
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -40,11 +54,21 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
+
+     
+
+
       // Make Detections
       const obj = await net.detect(video);
-
+      // console.log(obj)
+      function myFunction(value, index, array) {
+        // console.log(value)
+        console.log(value.class)
+      }
+      obj.forEach(myFunction);
       // Draw mesh
       const ctx = canvasRef.current.getContext("2d");
+      // console.log(ctx)
       drawRect(obj, ctx); 
     }
   };
@@ -85,6 +109,8 @@ function App() {
           }}
         />
       </header>
+      <button onClick={handleClick}>Switch camera</button>
+ 
     </div>
   );
 }
